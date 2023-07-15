@@ -14,7 +14,7 @@ describe('Register Organization Use Case', async () => {
   it('should to be able register a organization', async () => {
     const { org } = await sut.execute({
       responsible: 'Test',
-      mail: 'test@mail',
+      email: 'test@mail',
       address: 'address',
       zip_code: '2899999',
       city: 'Itaperuna',
@@ -31,7 +31,7 @@ describe('Register Organization Use Case', async () => {
   it('should hash organization password upon registration', async () => {
     const { org } = await sut.execute({
       responsible: 'Test',
-      mail: 'test@mail',
+      email: 'test@mail',
       address: 'address',
       zip_code: '2899999',
       city: 'Itaperuna',
@@ -48,7 +48,7 @@ describe('Register Organization Use Case', async () => {
   it('should not be able to register with same email twice', async () => {
     await sut.execute({
       responsible: 'Test',
-      mail: 'test@mail',
+      email: 'test@mail',
       address: 'address',
       zip_code: '2899999',
       city: 'Itaperuna',
@@ -62,7 +62,7 @@ describe('Register Organization Use Case', async () => {
     expect(async () => {
       await sut.execute({
         responsible: 'Test',
-        mail: 'test@mail',
+        email: 'test@mail',
         address: 'address',
         zip_code: '2899999',
         city: 'Itaperuna',

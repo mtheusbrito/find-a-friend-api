@@ -25,7 +25,15 @@ export class OrgsRepositoryInMemory implements OrgsRepository {
   }
 
   async findByEmail(email: string) {
-    const org = this.items.find((o) => o.mail === email)
+    const org = this.items.find((o) => o.email === email)
+    if (!org) {
+      return null
+    }
+    return org
+  }
+
+  async findById(id: string) {
+    const org = this.items.find((o) => o.id === id)
     if (!org) {
       return null
     }
