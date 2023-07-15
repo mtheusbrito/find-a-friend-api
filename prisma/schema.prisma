@@ -42,7 +42,7 @@ enum DType {
 model Organization {
   id            String  @id @default(uuid())
   responsible   String
-  mail          String
+  email         String  @default("")
   address       String
   zip_code      String
   city          String  @default("")

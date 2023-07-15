@@ -4,7 +4,7 @@ import { hash } from 'bcryptjs'
 import { OrgAlreadyExistsError } from '../errors/org-already-exists-error'
 type RegisterOrgUseCaseRequest = {
   responsible: string
-  mail: string
+  email: string
   address: string
   zip_code: string
   city: string
@@ -22,12 +22,11 @@ class RegisterOrgUseCase {
   constructor(private orgsRepository: OrgsRepository) {}
   async execute({
     password,
-    mail,
     ...data
   }: RegisterOrgUseCaseRequest): Promise<RegisterOrgUseCaseResponse> {
     const password_hash = await hash(password, 6)
 
-    const orgWithSameEmail = await this.orgsRepository.findByEmail(mail)
+    const orgWithSameEmail = await this.orgsRepository.findByEmail(data.email)
     if (orgWithSameEmail) {
       throw new OrgAlreadyExistsError()
     }
@@ -35,7 +34,6 @@ class RegisterOrgUseCase {
     const org = await this.orgsRepository.create({
       ...data,
       password_hash,
-      mail,
     })
     return { org }
   }

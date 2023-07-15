@@ -1,38 +1,50 @@
 import fastify from 'fastify'
 import fastifyBlipp from 'fastify-blipp'
-import { prisma } from './lib/prisma'
+// import { prisma } from './lib/prisma'
+import { orgsRoutes } from './http/controllers/organization/routes'
+import { ZodError } from 'zod'
+import { env } from './env'
+import fastifyJwt from '@fastify/jwt'
+import fastifyCookie from '@fastify/cookie'
+import fastifyCors from '@fastify/cors'
+
+import { petRoutes } from './http/controllers/pet/routes'
 
 export const app = fastify()
-
+app.register(fastifyJwt, {
+  secret: env.JWT_SECRET,
+  sign: {
+    expiresIn: '3',
+  },
+  cookie: {
+    cookieName: 'refreshToken',
+    signed: false,
+  },
+})
+app.register(fastifyCors, {
+  origin: true,
+  credentials: true,
+})
+app.register(fastifyCookie)
 app.register(fastifyBlipp)
 
 app.get('/', async (request, reply) => {
-  // await prisma.organization.create({
-  //   data: {
-  //     responsible: 'Test',
-  //     address: 'Test',
-  //     mail: 'mail@test.com',
-  //     number: '11 99999999',
-  //     password_hash: '1123123',
-  //     zip_code: '13123123',
-  //   },
-  // })
-  await prisma.organization.delete({
-    where: {
-      id: '790700c5-3805-4d2e-8bf1-6e6f2f019a1a',
-    },
-  })
-  const orgs = await prisma.organization.findMany({
-    // where: { id: '790700c5-3805-4d2e-8bf1-6e6f2f019a1a' },
-  })
+  return reply.status(200).send({ message: 'It`s works!' })
+})
 
-  // await prisma.pet.create({
-  //   data: {
-  //     organization_id: '790700c5-3805-4d2e-8bf1-6e6f2f019a1a',
-  //     name: 'aaaa',
-  //     about: 'aaaaaa',
-  //   },
-  // })
-  const pets = await prisma.pet.findMany()
-  return reply.status(200).send({ message: 'It`s works!', pets })
+app.register(orgsRoutes, { prefix: 'organizations' })
+app.register(petRoutes, { prefix: 'pets' })
+
+app.setErrorHandler((error, _, reply) => {
+  if (error instanceof ZodError) {
+    return reply
+      .status(400)
+      .send({ message: 'Validation error.', issues: error.format() })
+  }
+  if (env.NODE_ENV !== 'production') {
+    console.log(error)
+  } else {
+    // TODO: Here we should log to on external tool like DataDog/NewRelic/Sentry
+  }
+  return reply.status(500).send({ message: 'Internal server error.' })
 })
