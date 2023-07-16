@@ -69,8 +69,8 @@ describe('Delete Pet Use Case', async () => {
       org_id,
       pet_id,
     })
-    const petsCount = (await petsRepository.fetchAll()).length
-    expect(petsCount).toEqual(2)
+
+    expect((await petsRepository.fetchAll()).length).toEqual(2)
   })
 
   it('should not be possible to delete a pet from a different organization', async () => {

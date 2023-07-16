@@ -1,14 +1,14 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { UpdatePetUseCase } from './update'
-import { PetsRepository } from '@/repositories/pets-repository'
 import { PetsRepositoryInMemory } from '@/repositories/in-memory/pets-repository-in-memory'
 import { OrgsRepository } from '@/repositories/orgs-repository'
 import { OrgsRepositoryInMemory } from '@/repositories/in-memory/orgs-repository-in-memory'
 import { hash } from 'bcryptjs'
 import { UnauthorizedError } from '../errors/unauthorized-error'
+import { PetsRepository } from '@/repositories/pets-repository'
 
 let sut: UpdatePetUseCase
-let petsRepository: PetsRepositoryInMemory
+let petsRepository: PetsRepository
 let orgsRepository: OrgsRepository
 describe('Update Pet Use Case', () => {
   beforeEach(() => {
@@ -48,8 +48,9 @@ describe('Update Pet Use Case', () => {
       pet_id,
       org_id,
     })
+
     expect(pet.name).toEqual('Smile dog edited')
-    expect(petsRepository.items).toEqual([
+    expect(await petsRepository.fetchAll()).toEqual([
       expect.objectContaining({ name: 'Smile dog edited' }),
     ])
   })

@@ -40,6 +40,7 @@ export class PetsRepositoryInMemory implements PetsRepository {
   }
 
   async fetchAll() {
-    return this.items
+    const pets = this.items
+    return pets
   }
 }

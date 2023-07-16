@@ -28,6 +28,14 @@ export class UpdatePetUseCase {
   constructor(private petsRepository: PetsRepository) {}
 
   async execute({
+    name,
+    about,
+    dtype,
+    years,
+    port,
+    energyLevel,
+    dependencyLevel,
+    environment,
     ...data
   }: UpdatePetUseCaseRequest): Promise<UpdatePetUseCaseResponse> {
     const petExists = await this.petsRepository.findById(data.pet_id)
@@ -40,8 +48,18 @@ export class UpdatePetUseCase {
     }
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
-    const pet = await this.petsRepository.save({ ...petExists, ...data })
-    // console.log(pet.id)
+    const pet = await this.petsRepository.save({
+      ...petExists,
+      name,
+      about,
+      dtype,
+      years,
+      port,
+      energyLevel,
+      dependencyLevel,
+      environment,
+    })
+
     return { pet }
   }
 }
