@@ -30,7 +30,7 @@ describe('Get Info Pet Use Case', () => {
       phone: '22999999',
       password_hash: await hash('abc123', 6),
     })
-    const { id: pet_id, ...data } = await petsRepository.create({
+    const { id: pet_id } = await petsRepository.create({
       name: 'Smile dog',
       about: 'awesome',
       dependencyLevel: 'AVERAGE',
