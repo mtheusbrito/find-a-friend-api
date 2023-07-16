@@ -34,4 +34,12 @@ export class PetsRepositoryInMemory implements PetsRepository {
     }
     return pet
   }
+
+  async delete(id: string) {
+    this.items = this.items.filter((p) => p.id !== id)
+  }
+
+  async fetchAll() {
+    return this.items
+  }
 }

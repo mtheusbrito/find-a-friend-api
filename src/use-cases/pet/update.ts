@@ -19,7 +19,7 @@ type UpdatePetUseCaseRequest = {
   energyLevel: number
   dependencyLevel: Dependency
   environment: Environment
-  organization_id: string
+  org_id: string
   pet_id: string
 }
 
@@ -35,9 +35,10 @@ export class UpdatePetUseCase {
       throw new ResourceNotFoundError()
     }
 
-    if (petExists.organization_id !== data.organization_id) {
+    if (petExists.organization_id !== data.org_id) {
       throw new UnauthorizedError()
     }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
     const pet = await this.petsRepository.save({ ...petExists, ...data })
     // console.log(pet.id)
