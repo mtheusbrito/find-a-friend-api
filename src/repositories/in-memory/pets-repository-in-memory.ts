@@ -18,4 +18,20 @@ export class PetsRepositoryInMemory implements PetsRepository {
     this.items.push(newItem)
     return newItem
   }
+
+  async save(data: Pet) {
+    const index = this.items.findIndex((p) => p.id === data.id)
+    if (index >= 0) {
+      this.items[index] = { ...data }
+    }
+    return this.items[index]
+  }
+
+  async findById(id: string) {
+    const pet = this.items.find((p) => p.id === id)
+    if (!pet) {
+      return null
+    }
+    return pet
+  }
 }

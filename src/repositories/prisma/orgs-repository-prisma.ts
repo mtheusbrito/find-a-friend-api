@@ -1,5 +1,4 @@
 import { Prisma } from '@prisma/client'
-import { GetResult, Decimal } from '@prisma/client/runtime/library'
 import { OrgsRepository } from '../orgs-repository'
 import { prisma } from '@/lib/prisma'
 
@@ -19,6 +18,11 @@ export class OrgsRepositoryPrisma implements OrgsRepository {
         email,
       },
     })
+    return org
+  }
+
+  async findById(id: string) {
+    const org = await prisma.organization.findFirst({ where: { id } })
     return org
   }
 }

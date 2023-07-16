@@ -9,6 +9,7 @@ import fastifyCookie from '@fastify/cookie'
 import fastifyCors from '@fastify/cors'
 
 import { petRoutes } from './http/controllers/pet/routes'
+import { UnauthorizedError } from './use-cases/errors/unauthorized-error'
 
 export const app = fastify()
 app.register(fastifyJwt, {
@@ -40,6 +41,9 @@ app.setErrorHandler((error, _, reply) => {
     return reply
       .status(400)
       .send({ message: 'Validation error.', issues: error.format() })
+  }
+  if (error instanceof UnauthorizedError) {
+    return reply.status(403).send({ message: 'Unauthorized!' })
   }
   if (env.NODE_ENV !== 'production') {
     console.log(error)
