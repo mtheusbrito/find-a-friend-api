@@ -1,6 +1,15 @@
-import { Pet, Prisma } from '@prisma/client'
-import { PetsRepository } from '../pets-repository'
+import {
+  DType,
+  Dependency,
+  Environment,
+  Pet,
+  Port,
+  Prisma,
+  Years,
+} from '@prisma/client'
+import { FiltersPet, PetsRepository } from '../pets-repository'
 import { randomUUID } from 'crypto'
+import { GetResult } from '@prisma/client/runtime/library'
 
 export class PetsRepositoryInMemory implements PetsRepository {
   public items: Pet[] = []
@@ -42,5 +51,28 @@ export class PetsRepositoryInMemory implements PetsRepository {
   async fetchAll() {
     const pets = this.items
     return pets
+  }
+
+  async fetchByFilters(data: FiltersPet) {
+    return this.items.filter((p) => {
+      const withDtype = p.dtype.includes(data.dtype ?? '')
+      const withYears = p.years.includes(data.years ?? '')
+      const withPort = p.port.includes(data.port ?? '')
+      const withEnergyLevel = p.energyLevel
+        .toString()
+        .includes(data.energyLevel?.toString() ?? '')
+      const withDependencyLevel = p.dependencyLevel.includes(
+        data.dependencyLevel ?? '',
+      )
+      const withEnvironment = p.environment.includes(data.environment ?? '')
+      return (
+        withDtype &&
+        withYears &&
+        withPort &&
+        withEnergyLevel &&
+        withDependencyLevel &&
+        withEnvironment
+      )
+    })
   }
 }
