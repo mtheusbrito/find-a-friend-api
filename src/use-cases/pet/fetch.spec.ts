@@ -33,9 +33,9 @@ describe('Fetch Pet Use Case', () => {
     await petsRepository.create({
       name: 'Smile dog',
       about: 'awesome',
-      dependencyLevel: 'AVERAGE',
+      dependency_level: 'AVERAGE',
       dtype: 'DOG',
-      energyLevel: 2,
+      energy_level: 2,
       environment: 'AVERAGE',
       port: 'AVERAGE',
       years: 'ELDERLY',
@@ -45,9 +45,9 @@ describe('Fetch Pet Use Case', () => {
     await petsRepository.create({
       name: 'Smile cat',
       about: 'awesome',
-      dependencyLevel: 'AVERAGE',
+      dependency_level: 'AVERAGE',
       dtype: 'CAT',
-      energyLevel: 2,
+      energy_level: 2,
       environment: 'AVERAGE',
       port: 'AVERAGE',
       years: 'ELDERLY',

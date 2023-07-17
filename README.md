@@ -1,5 +1,4 @@
 ## Find a Friend - API
-
 #### Requisitos Funcionais(RF)
 
 - [x] Deve ser possível cadastrar um pet;

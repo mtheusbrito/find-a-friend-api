@@ -1,15 +1,6 @@
-import {
-  DType,
-  Dependency,
-  Environment,
-  Pet,
-  Port,
-  Prisma,
-  Years,
-} from '@prisma/client'
+import { Pet, Prisma } from '@prisma/client'
 import { FiltersPet, PetsRepository } from '../pets-repository'
 import { randomUUID } from 'crypto'
-import { GetResult } from '@prisma/client/runtime/library'
 
 export class PetsRepositoryInMemory implements PetsRepository {
   public items: Pet[] = []
@@ -19,7 +10,8 @@ export class PetsRepositoryInMemory implements PetsRepository {
       id: data.id ?? randomUUID(),
       years: data.years ?? 'ADULT',
       port: data.port ?? 'AVERAGE',
-      dependencyLevel: data.dependencyLevel ?? 'AVERAGE',
+      dependency_level: data.dependency_level ?? 'AVERAGE',
+      energy_level: data.energy_level ?? 1,
       environment: data.environment ?? 'AVERAGE',
       created_at: new Date(),
     }
@@ -58,11 +50,11 @@ export class PetsRepositoryInMemory implements PetsRepository {
       const withDtype = p.dtype.includes(data.dtype ?? '')
       const withYears = p.years.includes(data.years ?? '')
       const withPort = p.port.includes(data.port ?? '')
-      const withEnergyLevel = p.energyLevel
+      const withEnergyLevel = p.energy_level
         .toString()
-        .includes(data.energyLevel?.toString() ?? '')
-      const withDependencyLevel = p.dependencyLevel.includes(
-        data.dependencyLevel ?? '',
+        .includes(data.energy_level?.toString() ?? '')
+      const withDependencyLevel = p.dependency_level.includes(
+        data.dependency_level ?? '',
       )
       const withEnvironment = p.environment.includes(data.environment ?? '')
       return (

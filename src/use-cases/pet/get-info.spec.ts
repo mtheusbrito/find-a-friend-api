@@ -33,9 +33,9 @@ describe('Get Info Pet Use Case', () => {
     const { id: pet_id } = await petsRepository.create({
       name: 'Smile dog',
       about: 'awesome',
-      dependencyLevel: 'AVERAGE',
+      dependency_level: 'AVERAGE',
       dtype: 'DOG',
-      energyLevel: 2,
+      energy_level: 2,
       environment: 'AVERAGE',
       port: 'AVERAGE',
       years: 'ELDERLY',

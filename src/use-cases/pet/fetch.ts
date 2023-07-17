@@ -13,8 +13,8 @@ type FetchPetsUseCaseRequest = {
   dtype?: DType | null
   years?: Years | null
   port?: Port | null
-  energyLevel?: number | null
-  dependencyLevel?: Dependency | null
+  energy_level?: number | null
+  dependency_level?: Dependency | null
   environment?: Environment | null
 }
 type FetchPetsUseCaseResponse = {

@@ -61,15 +61,15 @@ model Organization {
 }
 
 model Pet {
-  id              String      @id @default(uuid())
-  name            String
-  about           String
-  dtype           DType
-  years           Years       @default(ADULT)
-  port            Port        @default(AVERAGE)
-  energyLevel     Int
-  dependencyLevel Dependency  @default(AVERAGE)
-  environment     Environment @default(AVERAGE)
+  id               String      @id @default(uuid())
+  name             String
+  about            String
+  dtype            DType
+  years            Years       @default(ADULT)
+  port             Port        @default(AVERAGE)
+  energy_level     Int         @default(1)
+  dependency_level Dependency  @default(AVERAGE)
+  environment      Environment @default(AVERAGE)
 
   created_at DateTime @default(now())
   // deleted_at DateTime?

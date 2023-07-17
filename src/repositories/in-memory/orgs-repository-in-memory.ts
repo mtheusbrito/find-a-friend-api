@@ -19,6 +19,7 @@ export class OrgsRepositoryInMemory implements OrgsRepository {
       state: data.state ?? '',
       phone: data.phone ?? '',
       created_at: new Date(),
+      email: data.email ?? '',
     }
     this.items.push(newItem)
     return newItem

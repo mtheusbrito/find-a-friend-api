@@ -12,13 +12,13 @@ export type FiltersPet = {
   dtype?: DType | null
   years?: Years | null
   port?: Port | null
-  energyLevel?: number | null
-  dependencyLevel?: Dependency | null
+  energy_level?: number | null
+  dependency_level?: Dependency | null
   environment?: Environment | null
 }
 export interface PetsRepository {
   create(data: Prisma.PetUncheckedCreateInput): Promise<Pet>
-  save(data: Prisma.PetUncheckedUpdateInput): Promise<Pet>
+  save(data: Pet): Promise<Pet>
   delete(id: string): Promise<void>
   findById(id: string): Promise<Pet | null>
   fetchAll(): Promise<Pet[]>

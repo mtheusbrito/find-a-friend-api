@@ -16,8 +16,8 @@ type UpdatePetUseCaseRequest = {
   dtype: DType
   years: Years
   port: Port
-  energyLevel: number
-  dependencyLevel: Dependency
+  energy_level: number
+  dependency_level: Dependency
   environment: Environment
   org_id: string
   pet_id: string
@@ -33,8 +33,8 @@ export class UpdatePetUseCase {
     dtype,
     years,
     port,
-    energyLevel,
-    dependencyLevel,
+    energy_level,
+    dependency_level,
     environment,
     ...data
   }: UpdatePetUseCaseRequest): Promise<UpdatePetUseCaseResponse> {
@@ -55,8 +55,8 @@ export class UpdatePetUseCase {
       dtype,
       years,
       port,
-      energyLevel,
-      dependencyLevel,
+      energy_level,
+      dependency_level,
       environment,
     })
 
