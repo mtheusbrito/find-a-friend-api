@@ -16,3 +16,17 @@
 - [x] O usuário que quer adotar, entrará em contato com a ORG via WhatsApp;
 - [x] Todos os filtros, além da cidade, são opcionais;
 - [x] Para uma ORG acessar a aplicação como admin, ela precisa estar logada;
+
+
+
+
+
+##### Para rodar o projeto:
+
+* Crie o .env antes...
+```
+cd <projet-folder> \
+npm install \
+npx prisma generate \
+npm start:dev
+```

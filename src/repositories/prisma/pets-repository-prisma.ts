@@ -17,7 +17,7 @@ export class PetsRepositoryPrisma implements PetsRepository {
   }
 
   async findById(id: string) {
-    const pet =  prisma.pet.findFirst({
+    const pet = await prisma.pet.findFirst({
       include: { organization: true, files: true, requiriments: true },
       where: { id },
       

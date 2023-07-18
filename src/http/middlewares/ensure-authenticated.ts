@@ -5,6 +5,9 @@ export async function ensureAuthenticated(
   reply: FastifyReply,
 ) {
   try {
+    if (!request.headers.authorization) {
+      throw new Error()
+    }
     await request.jwtVerify()
   } catch (err) {
     return reply.status(401).send({ message: 'Unauthorized.' })

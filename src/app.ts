@@ -10,6 +10,8 @@ import fastifyCors from '@fastify/cors'
 
 import { petRoutes } from './http/controllers/pet/routes'
 import { UnauthorizedError } from './use-cases/errors/unauthorized-error'
+import { ResourceNotFoundError } from './use-cases/errors/resource-not-found-error'
+import { OrgAlreadyExistsError } from './use-cases/errors/org-already-exists-error'
 
 export const app = fastify()
 app.register(fastifyJwt, {
@@ -32,15 +34,20 @@ app.register(fastifyBlipp)
 app.get('/', async (request, reply) => {
   return reply.status(200).send({ message: 'It`s works!' })
 })
-
-app.register(orgsRoutes, { prefix: 'organizations' })
 app.register(petRoutes, { prefix: 'pets' })
+app.register(orgsRoutes, { prefix: 'organizations' })
 
 app.setErrorHandler((error, _, reply) => {
   if (error instanceof ZodError) {
     return reply
       .status(400)
       .send({ message: 'Validation error.', issues: error.format() })
+  }
+  if (error instanceof OrgAlreadyExistsError) {
+    return reply.status(400).send({ message: error.message })
+  }
+  if (error instanceof ResourceNotFoundError) {
+    return reply.status(404).send({ message: error.message })
   }
   if (error instanceof UnauthorizedError) {
     return reply.status(403).send({ message: 'Unauthorized!' })

@@ -22,5 +22,5 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
     ...data,
     organization_id: org_id,
   })
-  return reply.status(200).send({ pet })
+  return reply.status(201).send({ pet })
 }

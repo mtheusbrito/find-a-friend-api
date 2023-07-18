@@ -1,6 +1,5 @@
 class OrgAlreadyExistsError extends Error {
-  constructor(message?: string) {
-    message && console.log(message)
+  constructor() {
     super(`Resource already exists! `)
   }
 }

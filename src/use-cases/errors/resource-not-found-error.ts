@@ -1,6 +1,6 @@
 class ResourceNotFoundError extends Error {
-  constructor(message?: string) {
-    super(`Resource ${message && message} not found! `)
+  constructor() {
+    super(`Resource not found! `)
   }
 }
 export { ResourceNotFoundError }
