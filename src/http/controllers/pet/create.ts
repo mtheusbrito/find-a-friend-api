@@ -10,8 +10,8 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
     dtype: z.nativeEnum(DType),
     years: z.nativeEnum(Years),
     port: z.nativeEnum(Port),
-    energyLevel: z.coerce.number().min(1).max(5),
-    dependencyLevel: z.nativeEnum(Dependency),
+    energy_level: z.coerce.number().min(1).max(5),
+    dependency_level: z.nativeEnum(Dependency),
     environment: z.nativeEnum(Environment),
   })
   const { ...data } = createBodySchema.parse(request.body)

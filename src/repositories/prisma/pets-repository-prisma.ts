@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Organization, Pet, Prisma } from '@prisma/client'
+import {  Pet, Prisma } from '@prisma/client'
 import { FiltersPet, PetsRepository } from '../pets-repository'
 import { prisma } from '@/lib/prisma'
 
@@ -18,7 +18,11 @@ export class PetsRepositoryPrisma implements PetsRepository {
 
   async findById(id: string) {
     const pet = await prisma.pet.findFirst({
-      include: { organization: true, files: true, requiriments: true },
+      include: { organization: true, images:{
+        include:{
+          file: true
+        }
+      }, requirements: true },
       where: { id },
       
     })
@@ -52,13 +56,13 @@ export class PetsRepositoryPrisma implements PetsRepository {
     //          : Prisma.empty
     //      }
     //      ${
-    //        data.dependencyLevel
-    //          ? Prisma.sql`AND P.dependencyLevel::text = ${data.dependencyLevel}`
+    //        data.dependency_level
+    //          ? Prisma.sql`AND P.dependency_level::text = ${data.dependency_level}`
     //          : Prisma.empty
     //      }
     //      ${
-    //        data.energyLevel
-    //          ? Prisma.sql`AND P.energyLevel::text = ${data.energyLevel}`
+    //        data.energy_level
+    //          ? Prisma.sql`AND P.energy_level::text = ${data.energy_level}`
     //          : Prisma.empty
     //      }
     //      ${

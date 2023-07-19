@@ -16,8 +16,8 @@ type CreatePetUseCaseRequest = {
   dtype: DType
   years: Years
   port: Port
-  energyLevel: number
-  dependencyLevel: Dependency
+  energy_level: number
+  dependency_level: Dependency
   environment: Environment
   organization_id: string
 }

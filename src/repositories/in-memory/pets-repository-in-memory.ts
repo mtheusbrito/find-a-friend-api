@@ -50,10 +50,10 @@ export class PetsRepositoryInMemory implements PetsRepository {
       const withDtype = p.dtype.includes(data.dtype ?? '')
       const withYears = p.years.includes(data.years ?? '')
       const withPort = p.port.includes(data.port ?? '')
-      const withEnergyLevel = p.energy_level
+      const withenergy_level = p.energy_level
         .toString()
         .includes(data.energy_level?.toString() ?? '')
-      const withDependencyLevel = p.dependency_level.includes(
+      const withdependency_level = p.dependency_level.includes(
         data.dependency_level ?? '',
       )
       const withEnvironment = p.environment.includes(data.environment ?? '')
@@ -61,8 +61,8 @@ export class PetsRepositoryInMemory implements PetsRepository {
         withDtype &&
         withYears &&
         withPort &&
-        withEnergyLevel &&
-        withDependencyLevel &&
+        withenergy_level &&
+        withdependency_level &&
         withEnvironment
       )
     })

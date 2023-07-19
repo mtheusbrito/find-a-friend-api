@@ -12,8 +12,16 @@ import { petRoutes } from './http/controllers/pet/routes'
 import { UnauthorizedError } from './use-cases/errors/unauthorized-error'
 import { ResourceNotFoundError } from './use-cases/errors/resource-not-found-error'
 import { OrgAlreadyExistsError } from './use-cases/errors/org-already-exists-error'
+import fastifyMulter from 'fastify-multer'
+import fastifyStatic from '@fastify/static'
+import path from 'path'
 
 export const app = fastify()
+app.register(fastifyStatic, {
+  root: path.join(__dirname, '..', 'tmp'),
+  prefix: '/public/',
+})
+app.register(fastifyMulter.contentParser)
 app.register(fastifyJwt, {
   secret: env.JWT_SECRET,
   sign: {

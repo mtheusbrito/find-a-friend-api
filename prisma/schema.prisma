@@ -42,14 +42,14 @@ enum DType {
 model Organization {
   id            String  @id @default(uuid())
   responsible   String
-  email         String  @default("")
+  email         String
   address       String
   zip_code      String
-  city          String  @default("")
-  state         String  @default("")
-  latitude      Decimal @default(0)
-  longitude     Decimal @default(0)
-  phone         String  @default("")
+  city          String
+  state         String
+  latitude      Decimal
+  longitude     Decimal
+  phone         String
   password_hash String
 
   created_at DateTime @default(now())
@@ -72,11 +72,10 @@ model Pet {
   environment      Environment @default(AVERAGE)
 
   created_at DateTime @default(now())
-  // deleted_at DateTime?
 
-  files         File[]
-  requiriments  Requirement[]
-  files_on_pets FilesOnPets[]
+  images       ImagesOnPets[]
+  requirements Requirement[]
+  // images_pets  ImagesOnPets[]
 
   organization    Organization @relation(fields: [organization_id], references: [id], onDelete: Cascade)
   organization_id String
@@ -89,10 +88,9 @@ model File {
   name String
 
   created_at DateTime @default(now())
-  // deleted_at DateTime?
 
-  pets        Pet[]
-  filesOnPets FilesOnPets[]
+  pets ImagesOnPets[]
+  // images_pets ImagesOnPets[]
 
   @@map("files")
 }
@@ -104,18 +102,16 @@ model Requirement {
   pet_id      String
 
   created_at DateTime @default(now())
-  // deleted_at DateTime?
 
   @@map("requirements")
 }
 
-model FilesOnPets {
-  pet    Pet    @relation(fields: [pet_id], references: [id], onDelete: Cascade)
-  pet_id String
-
+model ImagesOnPets {
+  pet     Pet    @relation(fields: [pet_id], references: [id], onDelete: Cascade)
+  pet_id  String
   file    File   @relation(fields: [file_id], references: [id], onDelete: Cascade)
   file_id String
 
   @@id([pet_id, file_id])
-  @@map("files_pets")
+  @@map("images_pets")
 }

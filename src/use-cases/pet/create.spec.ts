@@ -34,9 +34,9 @@ describe('Create Pet Use Case', async () => {
     const { pet } = await sut.execute({
       name: 'Smile dog',
       about: 'awesome',
-      dependencyLevel: 'AVERAGE',
+      dependency_level: 'AVERAGE',
       dtype: 'DOG',
-      energyLevel: 2,
+      energy_level: 2,
       environment: 'AVERAGE',
       port: 'AVERAGE',
       years: 'ELDERLY',
@@ -51,9 +51,9 @@ describe('Create Pet Use Case', async () => {
       await sut.execute({
         name: 'Smile dog',
         about: 'awesome',
-        dependencyLevel: 'AVERAGE',
+        dependency_level: 'AVERAGE',
         dtype: 'DOG',
-        energyLevel: 2,
+        energy_level: 2,
         environment: 'AVERAGE',
         port: 'AVERAGE',
         years: 'ELDERLY',
