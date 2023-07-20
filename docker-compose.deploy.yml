@@ -14,7 +14,7 @@ services:
       - pgdata:/data/postgres
   app:
     build: .
-    container_name: rentx
+    container_name: find_a_friend_api
     ports:
       - "0.0.0.0:3333:3333"
     volumes:
