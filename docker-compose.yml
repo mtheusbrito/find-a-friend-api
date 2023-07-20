@@ -1,10 +1,33 @@
-version: '3'
+version: '3.9'
 services:
-  api-solid-pg:
-    image: bitnami/postgresql
+  find_a_friend_db:
+    image: postgres
+    container_name: find_a_friend_db
+    hostname: postgres
+    restart: always
     ports:
-      - 5432:5432
-    environment: 
-      - POSTGRESQL_USERNAME=docker
-      - POSTGRESQL_PASSWORD=docker
-      - POSTGRESQL_DATABASE=find_a_friend
+      - "0.0.0.0:5432:5432"
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=find_a_friend
+    volumes:
+      - postgres-data:/var/lib/postgresql/data      
+  find_a_friend_api:
+    stdin_open: true
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: find_a_friend_api
+    volumes:
+      - .:/app
+      - type: bind
+        source: /Users/mtheusbrito/Workspace/repo/find_a_friend
+        target: /app
+    depends_on:
+      - find_a_friend_db
+    ports:
+      - "0.0.0.0:3333:3333"
+    # network_mode: host
+volumes:
+  postgres-data:

@@ -1,5 +1,5 @@
 import fastify from 'fastify'
-import fastifyBlipp from 'fastify-blipp'
+// import fastifyBlipp from 'fastify-blipp'
 // import { prisma } from './lib/prisma'
 import { orgsRoutes } from './http/controllers/organization/routes'
 import { ZodError } from 'zod'
@@ -37,7 +37,7 @@ app.register(fastifyCors, {
   credentials: true,
 })
 app.register(fastifyCookie)
-app.register(fastifyBlipp)
+// app.register(fastifyBlipp)
 
 app.get('/', async (request, reply) => {
   return reply.status(200).send({ message: 'It`s works!' })
