@@ -6,7 +6,8 @@
   "scripts": {
     "start:dev": "tsx watch src/server.ts",
     "start": "node build/server.js",
-    "test": "vitest run --dir src/use-cases"
+    "test": "vitest run --dir src/use-cases",
+    "build": "tsup src --out-dir build"
   },
   "keywords": [],
   "author": "",
