@@ -1,18 +1,20 @@
-FROM node:16.15-alpine
+FROM node:lts
 
 WORKDIR /app
 
 COPY package.json .
 COPY package-lock.json .
 COPY tsconfig.json .
-COPY src/ src/
-COPY ./prisma ./prisma
+COPY src ./src
+COPY prisma ./prisma/
 
-RUN npm ci
-RUN npx prisma generate
-RUN npm run build
+RUN npm install
+RUN npm install @prisma/client
+
 
 COPY . .
+RUN npx prisma generate --schema ./prisma/schema.prisma
 
+RUN npm run build
 EXPOSE 3333
-CMD ["node", "build/server.js"]
+CMD ["npm","run","start:migrate:prod"]
