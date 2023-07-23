@@ -1,0 +1,48 @@
+version: '3.9'
+services:
+  find_a_friend_db:
+    image: postgres
+    container_name: find_a_friend_db
+    networks:
+      - find-a-fried-bridge
+    hostname: postgres
+    restart: always
+    ports:
+      - "0.0.0.0:2345:5432"
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=find_a_friend
+    volumes:
+      - postgres-data:/var/lib/postgresql/data      
+  find_a_friend_api:
+    stdin_open: true
+    container_name: find_a_friend_api
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: build
+    environment:
+      - DATABASE_URL=postgresql://docker:docker@localhost:2345/find_a_friend?schema=public
+      - PORT=4000
+      - JWT_SECRET=find-a-friend-api
+    networks:
+      - find-a-fried-bridge
+    volumes:
+      - ./:/usr/app
+      - /usr/app/node_modules
+      - type: bind
+        source: /home/matheus/docker-repo/find-a-friend
+        target: /usr/app
+    depends_on:
+      - find_a_friend_db
+    ports:
+      - "4000:4000"
+    command: npx prisma migrate dev && npm run start:dev
+    # network_mode: host
+volumes:
+  postgres-data:
+
+networks:
+  find-a-fried-bridge:
+    driver: bridge

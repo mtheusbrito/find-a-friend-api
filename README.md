@@ -49,3 +49,11 @@ npm prisma migrate dev
 // Iniciar projeto
 npm start:dev
 ```
+
+
+#### Docker container
+
+```
+docker compose up -f docker-compose.build.yml --build -d && docker compose up --build -d
+
+```

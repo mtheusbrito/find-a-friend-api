@@ -1,41 +1,9 @@
 version: '3.9'
+
 services:
-  find_a_friend_db:
-    image: postgres
-    container_name: find_a_friend_db
-    networks:
-      - find-a-fried-bridge
-    hostname: postgres
-    restart: always
-    ports:
-      - "0.0.0.0:5432:5432"
-    environment:
-      - POSTGRES_USER=docker
-      - POSTGRES_PASSWORD=docker
-      - POSTGRES_DB=find_a_friend
-    volumes:
-      - postgres-data:/var/lib/postgresql/data      
-  find_a_friend_api:
-    stdin_open: true
+  api:
     build:
       context: .
-      dockerfile: Dockerfile
-    container_name: find_a_friend_api
-    networks:
-      - find-a-fried-bridge
-    volumes:
-      - .:/app
-      - type: bind
-        source: /home/matheus/docker-repo/find-a-friend
-        target: /app
-    depends_on:
-      - find_a_friend_db
-    ports:
-      - "0.0.0.0:3333:3333"
-    # network_mode: host
-volumes:
-  postgres-data:
-
-networks:
-  find-a-fried-bridge:
-    driver: bridge
+      target: production
+    ports: 
+      - 4000:4000
