@@ -53,7 +53,26 @@ npm start:dev
 
 #### Docker container
 
-```
-docker compose up -f docker-compose.build.yml --build -d && docker compose up --build -d
+
+- docker-compose.build.yml
 
 ```
+...
+- type: bind
+        source: /root/docker-volumes/find-a-friend-api   <--- rename to local path
+        target: /usr/app
+...
+```
+
+```
+// Executa os arquivos de migrações SQL no banco de dados e transpila o projeto para js
+docker compose up -f docker-compose.build.yml --build -d 
+```
+
+```
+// Executa a cópia dos arquivos traspilados para a pasta de destino do projeto
+docker compose up --build -d
+```
+
+
+Executando em [http://localhost:4000](http://localhost:4000)
