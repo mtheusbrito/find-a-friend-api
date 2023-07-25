@@ -92,4 +92,13 @@ export class PetsRepositoryPrisma implements PetsRepository {
        }
     })
   }
+
+  async fetchAllCitiesByState(state: string){
+    const data = await prisma.$queryRaw<{city:string}[]>`select distinct O.city FROM pets as P join organizations O on O.id = P.organization_id where UPPER(O.state) = UPPER(${state})`;
+    return data.map(d =>{
+      return {
+        name: d.city
+       }
+    })
+  }
 }

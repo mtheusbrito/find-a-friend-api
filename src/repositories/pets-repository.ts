@@ -24,4 +24,5 @@ export interface PetsRepository {
   fetchAll(): Promise<Pet[]>
   fetchByFilters(data: FiltersPet): Promise<Pet[]>
   fetchAllStates(): Promise<{ name: string }[]>
+  fetchAllCitiesByState(state: string): Promise<{ name: string }[]>
 }
