@@ -23,4 +23,5 @@ export interface PetsRepository {
   findById(id: string): Promise<Pet | null>
   fetchAll(): Promise<Pet[]>
   fetchByFilters(data: FiltersPet): Promise<Pet[]>
+  fetchAllStates(): Promise<{ name: string }[]>
 }

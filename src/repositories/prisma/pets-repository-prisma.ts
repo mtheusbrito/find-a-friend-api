@@ -83,4 +83,13 @@ export class PetsRepositoryPrisma implements PetsRepository {
     //      `)
     return pets
   }
+
+  async fetchAllStates(){
+    const data = await prisma.$queryRaw<{state:string}[]>`SELECT DISTINCT  O.state FROM pets AS P JOIN organizations O ON O.id = P.organization_id `;
+    return data.map(d =>{
+      return {
+        name: d.state
+       }
+    })
+  }
 }

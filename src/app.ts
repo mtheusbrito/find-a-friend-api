@@ -15,8 +15,10 @@ import { OrgAlreadyExistsError } from './use-cases/errors/org-already-exists-err
 import fastifyMulter from 'fastify-multer'
 import fastifyStatic from '@fastify/static'
 import path from 'path'
-
+import { geolocationRoutes } from './http/controllers/geolocation/routes'
+// import printRoutes from 'fastify-print-routes'
 export const app = fastify()
+
 app.register(fastifyStatic, {
   root: path.join(__dirname, '..', 'tmp'),
   prefix: '/public/',
@@ -37,13 +39,13 @@ app.register(fastifyCors, {
   credentials: true,
 })
 app.register(fastifyCookie)
-// app.register(fastifyBlipp)
 
 app.get('/', async (request, reply) => {
   return reply.status(200).send({ message: 'It`s works!' })
 })
 app.register(petRoutes, { prefix: 'pets' })
 app.register(orgsRoutes, { prefix: 'organizations' })
+app.register(geolocationRoutes, { prefix: 'geolocation' })
 
 app.setErrorHandler((error, _, reply) => {
   if (error instanceof ZodError) {
